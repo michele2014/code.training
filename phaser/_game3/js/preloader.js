@@ -16,12 +16,20 @@ Game.Preloader.prototype = {
         //LOAD ALL ASSETS
 
         this.load.tilemap('map', 'assets/level1.csv');
-        this.load.image('tileset', 'assets/tileset_1.png');
+        this.load.image('tileset', 'assets/tile_3.png');
 
         this.load.spritesheet('player', 'assets/player.png', 24, 26);
+        this.load.spritesheet('buttons', 'assets/buttons.png', 193, 71);
+        // this.load.image('drag', 'assets/drag.png');
+        this.load.image('bird', 'assets/drag.png');
+        this.load.image('nut', 'assets/nut.png');
+
+        this.load.image('button', 'assets/button.png');
+
+
     },
 
-    create: function(){ 
-        this.state.start('Level1');
+    create: function() {
+        this.state.start('MainMenu');
     }
 }
