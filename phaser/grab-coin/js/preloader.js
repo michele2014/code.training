@@ -15,14 +15,14 @@ Game.Preloader.prototype = {
 
         //LOAD ALL ASSETS
 
-        // this.load.tilemap('map', 'assets/level1.csv');
-        this.load.tilemap('map', 'assets/level1.json', null, Phaser.Tilemap.TILED_JSON);
-
-        this.load.image('tileset', 'assets/tile_3.png');
+        // this.load.tilemap('map', 'assets/tile-map/grab-coin.json', null, Phaser.Tilemap.TILED_JSON);
+        //CSV VERSION:  
+        this.load.tilemap('map', 'assets/tile-map/grab-coin.csv');
+        this.load.image('tileset', 'assets/tile-map/grab-coin.png');
 
         this.load.spritesheet('player', 'assets/player.png', 24, 26);
         this.load.spritesheet('buttons', 'assets/buttons.png', 193, 71);
-        // this.load.image('drag', 'assets/drag.png');
+        this.load.image('drag', 'assets/drag.png');
         this.load.image('bird', 'assets/drag.png');
         this.load.image('nut', 'assets/nut.png');
 
@@ -32,6 +32,6 @@ Game.Preloader.prototype = {
     },
 
     create: function() {
-        this.state.start('MainMenu');
+        this.state.start('Level1');
     }
 }

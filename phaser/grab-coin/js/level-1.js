@@ -8,7 +8,13 @@ var drag;
 var shootTime = 0;
 var nuts;
 
-EnemyBird = function(index, game, x, y) {
+var respawn;
+
+var playerXP = 0;
+var gameXPSteps = 15;
+var playerLevel = 0;
+
+EnemyBird = function (index, game, x, y) {
     this.bird = game.add.sprite(x, y, 'bird');
     this.bird.anchor.setTo(0.5, 0.5);
     this.bird.name = index.toString();
@@ -27,29 +33,46 @@ EnemyBird = function(index, game, x, y) {
 
 var enemy1;
 
-Game.Level1 = function(game) {
+Game.Level1 = function (game) {
 
 }
 
 Game.Level1.prototype = {
 
-    create: function(game) {
+    create: function (game) {
         this.stage.backgroundColor = '#196bb3';
         this.physics.arcade.gravity.y = 1400;
 
+        respawn = game.add.group();
+
+        //CSV VERSION: 
         map = this.add.tilemap('map', 64, 64);
+        //CSV VERSION: 
         map.addTilesetImage('tileset');
 
+        // map = this.add.tilemap('map');
+        // map.addTilesetImage('grab-coin', 'tileset');
+
+        //CSV VERSION: 
         layer = map.createLayer(0);
+        // layer = map.createLayer('Tile Layer 1');
+
         layer.resizeWorld();
 
         map.setCollisionBetween(0, 2);
         map.setTileIndexCallback(5, this.reserPlayer, this);
+        // map.setTileIndexCallback(6, this.getCoin, this);
         map.setTileIndexCallback(6, this.getCoin, this);
+        map.setTileIndexCallback(7, this.spawn, this);
 
-
+        map.createFromObjects('Object Layer 1', 7, '', true, false, respawn);
+        //CSV VERSION:
         player = this.add.sprite(100, 560, 'player');
+        // player = this.add.sprite(0, 0, 'player');
+
         player.anchor.setTo(0.5, 0.5);
+
+        this.spawn();
 
         player.animations.add('idle', [0, 1], 1, true);
         player.animations.add('jump', [2], 1, true);
@@ -59,27 +82,27 @@ Game.Level1.prototype = {
         this.camera.follow(player);
 
         player.body.collideWorldBounds = true;
- 
+
         controls = {
             right: this.input.keyboard.addKey(Phaser.Keyboard.RIGHT),
             left: this.input.keyboard.addKey(Phaser.Keyboard.LEFT),
             up: this.input.keyboard.addKey(Phaser.Keyboard.UP),
-            shoot: this.input.keyboard.addKey(Phaser.Keyboard.S),
+            shoot: this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR),
         };
 
         button = this.add.button(this.world.centerX - 95,
             this.world.centerY + 200,
             'buttons',
-            function() {
+            function () {
                 console.log('pressed');
             }, this, 2, 1, 0);
 
         button.fixedToCamera = true;
 
-        // drag = this.add.sprite(player.x, player.y, 'drag');
-        // drag.anchor.setTo(0.5, 0.5);
-        // drag.inputEnabled = true;
-        // drag.input.enableDrag(true);
+        drag = this.add.sprite(player.x, player.y, 'drag');
+        drag.anchor.setTo(0.5, 0.5);
+        drag.inputEnabled = true;
+        drag.input.enableDrag(true);
 
         enemy1 = new EnemyBird(0, game, player.x + 400, player.y - 200);
 
@@ -98,17 +121,16 @@ Game.Level1.prototype = {
 
 
     },
-    preload: function() {},
+    preload: function () {},
 
-    update: function() {
+    update: function () {
         this.physics.arcade.collide(player, layer);
         this.physics.arcade.collide(player, enemy1.bird, this.reserPlayer);
-
 
         // player.body.velocity.y = 0;
         player.body.velocity.x = 0;
 
-
+        playerLevel = Math.log(playerXP, gameXPSteps);
         // if (controls.up.isDown) {
         //     player.animations.play('jump');
         // }
@@ -153,7 +175,14 @@ Game.Level1.prototype = {
     },
 
     getCoin() {
-        map.putTile(-1, layer.getTileX(player.x), layer.getTileY(player.y))
+        map.putTile(-1, layer.getTileX(player.x), layer.getTileY(player.y));
+        this.levelUp();
+    },
+
+    spawn() {
+        respawn.forEach(spawnPoint => {
+            player.reset(spawnPoint.x, spawnPoint.y);
+        });
     },
 
     checkOverlap(spriteA, spriteB) {
@@ -170,7 +199,15 @@ Game.Level1.prototype = {
                 nut.reset(player.x, player.y);
                 nut.body.velocity.y = -600;
                 shootTime = this.time.now + 900;
+
+                this.levelUp();
+
             }
         }
+    },
+    levelUp() {
+        playerXP += 15;
+        console.log('Player Level: ' + Math.floor(playerLevel));
+
     }
 }
