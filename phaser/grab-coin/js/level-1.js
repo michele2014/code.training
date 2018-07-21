@@ -14,6 +14,8 @@ var playerXP = 0;
 var gameXPSteps = 15;
 var playerLevel = 0;
 
+var playerSpeed;
+
 EnemyBird = function (index, game, x, y) {
     this.bird = game.add.sprite(x, y, 'bird');
     this.bird.anchor.setTo(0.5, 0.5);
@@ -64,6 +66,8 @@ Game.Level1.prototype = {
         // map.setTileIndexCallback(6, this.getCoin, this);
         map.setTileIndexCallback(6, this.getCoin, this);
         map.setTileIndexCallback(7, this.spawn, this);
+        map.setTileIndexCallback(9, this.speedPoweup, this);
+
 
         map.createFromObjects('Object Layer 1', 7, '', true, false, respawn);
         //CSV VERSION:
@@ -177,6 +181,16 @@ Game.Level1.prototype = {
     getCoin() {
         map.putTile(-1, layer.getTileX(player.x), layer.getTileY(player.y));
         this.levelUp();
+    },
+
+    speedPoweup() {
+        map.putTile(-1, layer.getTileX(player.x), layer.getTileY(player.y));
+
+        playerSpeed += 50;
+
+        this.time.events.add(Phaser.Timer.SECOND * 2, function () {
+            playerSpeed -= 50;
+        });
     },
 
     spawn() {
