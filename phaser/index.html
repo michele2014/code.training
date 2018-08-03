@@ -46,6 +46,10 @@
           padding: 5px; 
           border: 0;
         }
+        
+        .game-loading-alert{
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -65,18 +69,25 @@
       </nav>  
    
       <iframe class = "right" >
-      THE GAME IS LOADING...
+      
       </iframe>
+      <div class="game-loading-alert">THE GAME IS LOADING...</div>
    </section>
 </body>
  <script>
     var BASIC_PATH = "https://michele2014.github.io/code.training/phaser"; 
+    var gameLoadingAlert  =  document.querySelector('.game-loading-alert');
+    
     var iframe = document.querySelector('iframe');
-      iframe.src =  BASIC_PATH + '/space-battle/index.html';
+    iframe.src =  BASIC_PATH + '/space-battle/index.html';
+    iframe.onload = function() {
+      gameLoadingAlert.style.display = '';
+    }; 
      
+
     function changeSource(target){ 
       var gamePath = BASIC_PATH + target.getAttribute('href');
-
+      gameLoadingAlert.style.display = 'block';
       iframe.src = gamePath;
       return false;
     }
