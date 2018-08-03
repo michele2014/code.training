@@ -59,19 +59,16 @@
         </ul> 
       </nav>  
    
-      <iframe class = "right" src = "https://michele2014.github.io/code.training/phaser/space-battle/index.html"></iframe>
+      <iframe class = "right" ></iframe>
    </section>
 </body>
  <script>
-    var BASIC_PATH = "https://michele2014.github.io/code.training/phaser";
-      document.addEventListener("DOMContentLoaded", function(event) {
-        var iframe = document.querySelector('iframe');
-
-      });
-
+    var BASIC_PATH = "https://michele2014.github.io/code.training/phaser"; 
+    var iframe = document.querySelector('iframe');
+      iframe.src =  BASIC_PATH + '/space-battle/index.html';
+     
     function changeSource(target){ 
       var gamePath = BASIC_PATH + target.getAttribute('href');
-      console.log(gamePath)
 
       iframe.src = gamePath;
       return false;
