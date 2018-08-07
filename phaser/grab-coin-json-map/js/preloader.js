@@ -14,10 +14,7 @@ Game.Preloader.prototype = {
         this.load.setPreloadSprite(this.preloaderBar);
 
         //LOAD ALL ASSETS
-
         this.load.tilemap('map', 'assets/tile-map/grab-coin.json', null, Phaser.Tilemap.TILED_JSON);
-        //CSV VERSION:  
-        // this.load.tilemap('map', 'assets/tile-map/grab-coin.csv');
         this.load.image('tileset', 'assets/tile-map/grab-coin.png');
 
         this.load.spritesheet('player', 'assets/player.png', 24, 26);

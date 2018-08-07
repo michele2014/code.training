@@ -11,6 +11,7 @@ var bulletTime = 0;
 var fireButton;
 
 var enemies;
+var explosions;
 
 var score = 0;
 var scoreText;
@@ -21,8 +22,9 @@ var mainState = {
         game.load.image('starfield', 'assets/starfield.png');
         game.load.image('player', 'assets/player.png');
         game.load.image('bullet', 'assets/bullet.png');
-        game.load.image('enemy', 'assets/enemy.png');
-
+        // game.load.image('enemy', 'assets/enemy.png');
+        game.load.spritesheet('enemy', 'assets/invader.png', 32, 32);
+        game.load.spritesheet('kaboom', 'assets/explode.png', 128, 128);
     },
 
     create: function() {
@@ -51,6 +53,12 @@ var mainState = {
 
         createEnemies();
 
+        //  An explosion pool
+        explosions = game.add.group();
+        explosions.createMultiple(30, 'kaboom');
+        explosions.forEach(setupInvader, this);
+
+        //TEXT
         scoreText = game.add.text(0, 550, 'Score:', { font: '32px Arial', fill: '#fff' });
         winText = game.add.text(game.world.centerX, game.world.centerY, 'You Win!', { font: '32px Arial', fill: '#fff' });
         winText.visible = false;
@@ -87,7 +95,7 @@ var mainState = {
 
         scoreText.text = 'Score:' + score;
 
-        if(score == 400){
+        if (score == 400) {
             winText.visible = true;
             scoreText.visible = false;
         }
@@ -106,6 +114,14 @@ function fireBullet() {
     }
 }
 
+
+function setupInvader(invader) {
+
+    invader.anchor.x = 0.5;
+    invader.anchor.y = 0.5;
+    invader.animations.add('kaboom');
+
+}
 
 function createEnemies() {
     for (var y = 0; y < 4; y++) {
@@ -132,7 +148,16 @@ function collisionHandler(bullet, enemy) {
     bullet.kill();
     enemy.kill();
 
-    score +=100;
+    score += 100;
+
+    //  And create an explosion :)
+    setExplosion(enemy);
+}
+
+function setExplosion(element) {
+    var explosion = explosions.getFirstExists(false);
+    explosion.reset(element.body.x, element.body.y);
+    explosion.play('kaboom', 30, false, true);
 }
 
 game.state.add('mainState', mainState);
