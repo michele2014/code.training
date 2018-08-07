@@ -75,7 +75,10 @@
                     <a href=" https://github.com/michele2014/code.training">HOME</a>
                 </li>
                 <li>-</li>
-                <!--             <li> <a href="/getting-started-with-phaser-3/index.html" onclick="return changeSource(this)">Test Phaser3</a></li>  -->
+                <li>
+                    <a href="/example(Ph3)/index.html"
+                        onclick="return changeSource(this)">Test Phaser3</a>
+                </li>
                 <li>
                     <a href="/space-battle/index.html" onclick="return changeSource(this)">space-battle</a>
                 </li>
@@ -86,7 +89,7 @@
                     <a href="/grab-coin/index.html" onclick="return changeSource(this)">grab-coin</a>
                 </li>
                 <li>
-                    <a href="/phaser-3-tutorial/index.html" onclick="return changeSource(this)">phaser-3-tutorial</a>
+                    <a href="/grab-stars(Ph3)index.html" onclick="return changeSource(this)">grab-stars(Ph3)</a>
                 </li>
             </ul>
         </nav>
@@ -98,28 +101,40 @@
     </section>
 </body>
 <script>
-    const BASIC_PATH = "https://michele2014.github.io/code.training/phaser";
-    const gameLoadingAlert = document.querySelector('.game-loading-alert');
-    const PHASER_TEST_SESSION_KEY = "PHASER_TEST";
+    const BASIC_PATH =
+        "https://michele2014.github.io/code.training/phaser";
+    const gameLoadingAlert = document.querySelector(
+        '.game-loading-alert');
+    const PHASER_TEST_SESSION_KEY =
+        "PHASER_TEST";
 
-    const iframe = document.querySelector('iframe');
-    const gameKeyLink = localStorage.getItem(PHASER_TEST_SESSION_KEY);
- 
-    iframe.src = BASIC_PATH + (gameKeyLink || '/space-battle/index.html');
+    const iframe = document.querySelector(
+        'iframe');
+    const gameKeyLink = localStorage.getItem(
+        PHASER_TEST_SESSION_KEY);
+
+    iframe.src = BASIC_PATH + (gameKeyLink ||
+        '/space-battle/index.html');
     iframe.onload = function() {
-        gameLoadingAlert.style.display = 'none';
+        gameLoadingAlert.style.display =
+            'none';
     };
 
 
     function changeSource(target) {
-        var gameKeyLink = target.getAttribute('href');
-        var gamePath = BASIC_PATH + gameKeyLink;
+        var gameKeyLink = target.getAttribute(
+            'href');
+        var gamePath = BASIC_PATH +
+            gameKeyLink;
 
-        gameLoadingAlert.style.display = 'block';
+        gameLoadingAlert.style.display =
+            'block';
         iframe.src = gamePath;
 
-        localStorage.setItem(PHASER_TEST_SESSION_KEY, gameKeyLink);
-         
+        localStorage.setItem(
+            PHASER_TEST_SESSION_KEY,
+            gameKeyLink);
+
         return false;
     }
 </script>
