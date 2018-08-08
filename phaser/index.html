@@ -108,8 +108,7 @@
     </section>
 </body>
 <script>
-    const BASIC_PATH = window.location.origin
-    // "https://michele2014.github.io/code.training/phaser";
+    const BASIC_PATH = window.location.href.replace('/index.html','') 
     const gameLoadingAlert = document.querySelector('.game-loading-alert');
     const PHASER_TEST_SESSION_KEY = "PHASER_TEST";
 

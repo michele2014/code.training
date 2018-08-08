@@ -62,12 +62,11 @@ Game.Level1.prototype = {
         map.setTileIndexCallback(6, this.reserPlayer, this);
         map.setTileIndexCallback(9, this.speedPoweup, this);
 
-
         //layer tube
         layerTube = map.createLayer('Mario-word');
         map.addTilesetImage('super_mario', 'tileset-2');
         map.setCollisionBetween(0, 100, true, 'Mario-word');
-        
+
         //load player
         player = this.add.sprite(100, 560, 'player');
         player.anchor.setTo(0.5, 0.5);
