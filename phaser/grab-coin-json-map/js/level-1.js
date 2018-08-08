@@ -43,10 +43,22 @@ Game.Level1.prototype = {
         this.stage.backgroundColor = '#196bb3';
         this.physics.arcade.gravity.y = 1400;
 
+       
+
+
+        //sky
+        mapSky = this.add.tilemap('map');
+        mapSky.addTilesetImage('super_mario', 'tileset');
+
+        layerSky = map.createLayer('map');
+        layerSky.resizeWorld();
+
+
+
         map = this.add.tilemap('map');
         map.addTilesetImage('grab-coin', 'tileset');
-
-        layer = map.createLayer('MainStage');
+        
+        layer = map.createLayer('Ground');
         layer.resizeWorld();
 
         map.setCollisionBetween(0, 2);
