@@ -1,3 +1,7 @@
+'use strict';
+
+var map, layerGround, layerTube;
+
 var player;
 var controls = {};
 var playerSpeed = 150;
@@ -14,7 +18,7 @@ var playerLevel = 0;
 
 var playerSpeed;
 
-EnemyBird = function(index, game, x, y) {
+var EnemyBird = function (index, game, x, y) {
     this.bird = game.add.sprite(x, y, 'bird');
     this.bird.anchor.setTo(0.5, 0.5);
     this.bird.name = index.toString();
@@ -33,39 +37,38 @@ EnemyBird = function(index, game, x, y) {
 
 var enemy1;
 
-Game.Level1 = function(game) {
+Game.Level1 = function (game) {
 
 }
 
 Game.Level1.prototype = {
 
-    create: function(game) {
-        this.stage.backgroundColor = '#196bb3';
+    create: function (game) {
+        this.stage.backgroundColor = '#6d96ff'; //'#196bb3';
         this.physics.arcade.gravity.y = 1400;
 
-       
-
-
-        //sky
-        mapSky = this.add.tilemap('map');
-        mapSky.addTilesetImage('super_mario', 'tileset');
-
-        layerSky = map.createLayer('map');
-        layerSky.resizeWorld();
-
-
-
+        //load map
         map = this.add.tilemap('map');
-        map.addTilesetImage('grab-coin', 'tileset');
-        
-        layer = map.createLayer('Ground');
-        layer.resizeWorld();
 
+        //layer ground
+        map.addTilesetImage('grab-coin', 'tileset');
         map.setCollisionBetween(0, 2);
+
+        layerGround = map.createLayer('Ground');
+        layerGround.resizeWorld();
+
+        //set collision
         map.setTileIndexCallback(7, this.getCoin, this);
         map.setTileIndexCallback(6, this.reserPlayer, this);
         map.setTileIndexCallback(9, this.speedPoweup, this);
 
+
+        //layer tube
+        layerTube = map.createLayer('Mario-word');
+        map.addTilesetImage('super_mario', 'tileset-2');
+        map.setCollisionBetween(0, 100, true, 'Mario-word');
+        
+        //load player
         player = this.add.sprite(100, 560, 'player');
         player.anchor.setTo(0.5, 0.5);
         player.animations.add('idle', [0, 1], 1, true);
@@ -99,10 +102,13 @@ Game.Level1.prototype = {
         nuts.setAll('outOfBoundsKill', true);
         nuts.setAll('checkworldBounds', true);
     },
-    preload: function() {},
+    preload: function () {},
 
-    update: function() {
-        this.physics.arcade.collide(player, layer);
+    update: function () {
+
+
+        this.physics.arcade.collide(player, layerGround);
+        this.physics.arcade.collide(player, layerTube), () => console.log('collode layerTube');
         this.physics.arcade.collide(player, enemy1.bird, this.reserPlayer);
 
         // player.body.velocity.y = 0;
@@ -127,7 +133,7 @@ Game.Level1.prototype = {
 
         if (controls.up.isDown && (player.body.onFloor() || player.body.touching.down) && this.time.now >
             jumpTimer) {
-            player.body.velocity.y = -600;
+            player.body.velocity.y = -800;
             jumpTimer = this.time.now + 750;
             player.animations.play('jump');
         }
@@ -154,16 +160,16 @@ Game.Level1.prototype = {
     },
 
     getCoin() {
-        map.putTile(-1, layer.getTileX(player.x), layer.getTileY(player.y));
+        map.putTile(-1, layerGround.getTileX(player.x), layerGround.getTileY(player.y));
         this.levelUp();
     },
 
     speedPoweup() {
-        map.putTile(-1, layer.getTileX(player.x), layer.getTileY(player.y));
+        map.putTile(-1, layerGround.getTileX(player.x), layerGround.getTileY(player.y));
 
         playerSpeed += 50;
 
-        this.time.events.add(Phaser.Timer.SECOND * 2, function() {
+        this.time.events.add(Phaser.Timer.SECOND * 2, function () {
             playerSpeed -= 50;
         });
     },
@@ -183,7 +189,7 @@ Game.Level1.prototype = {
 
     shootNut() {
         if (this.time.now > shootTime) {
-            nut = nuts.getFirstExists(false);
+            var nut = nuts.getFirstExists(false);
             if (nut) {
                 nut.reset(player.x, player.y);
                 nut.body.velocity.y = -600;

@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"
-    />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <title>Game list</title>
@@ -22,7 +21,7 @@
         }
 
         .left {
-            flex-basis: 15%;
+            flex-basis: 20%;
         }
 
         .right {
@@ -70,31 +69,20 @@
 </head>
 
 <body>
-<<<<<<< HEAD
-    <ul>
-        <ul><a href="./space-battle/index.html">space-battle</a></ul>
-        <ul> <a href="./grab-diamond/index.html">grab-diamond</a></ul>
-        <ul> <a href="./grab-coin/index.html">grab-coin</a></ul> 
-
-        <ul> <a href="./grab-coin/index.html">grab-coin</a></ul> 
-
-        <ul> <a href="./phaser-3-tutorial/index.html">phaser-3-tutorial</a></ul> 
-        <ul> <a href="./getting-started-with-phaser-3/index.html">getting-started-with-phaser-3</a></ul> 
-
-        
-        
-    </ul> 
-=======
->>>>>>> 40c1bc5aeddf2272400ef96d800ca630f50e23df
 
     <section class="container">
         <nav class="left">
             <ul>
-
                 <li>
                     <a href=" https://github.com/michele2014/code.training">HOME</a>
                 </li>
+                <li>
+                    <a onclick="resetPersitence();" href="javascript:void(0)">Clean data</a>
+                </li>
                 <li>-</li>
+                <li>
+                    <a href="/grab-coin-json-map/index.html" onclick="return changeSource(this)">Grab-coin-json-map</a>
+                </li>
                 <li>
                     <a href="/example(Ph3)/index.html" onclick="return changeSource(this)">Test Phaser3</a>
                 </li>
@@ -108,7 +96,7 @@
                     <a href="/grab-coin/index.html" onclick="return changeSource(this)">grab-coin</a>
                 </li>
                 <li>
-                    <a href="/grab-stars(Ph3)index.html" onclick="return changeSource(this)">grab-stars(Ph3)</a>
+                    <a href="/grab-stars(Ph3)/index.html" onclick="return changeSource(this)">grab-stars(Ph3)</a>
                 </li>
             </ul>
         </nav>
@@ -120,41 +108,37 @@
     </section>
 </body>
 <script>
-    const BASIC_PATH =
-        "https://michele2014.github.io/code.training/phaser";
-    const gameLoadingAlert = document.querySelector(
-        '.game-loading-alert');
-    const PHASER_TEST_SESSION_KEY =
-        "PHASER_TEST";
+    const BASIC_PATH = window.location.origin
+    // "https://michele2014.github.io/code.training/phaser";
+    const gameLoadingAlert = document.querySelector('.game-loading-alert');
+    const PHASER_TEST_SESSION_KEY = "PHASER_TEST";
 
-    const iframe = document.querySelector(
-        'iframe');
-    const gameKeyLink = localStorage.getItem(
-        PHASER_TEST_SESSION_KEY);
+    const iframe = document.querySelector('iframe');
+    const gameKeyLink = localStorage.getItem(PHASER_TEST_SESSION_KEY);
 
-    iframe.src = BASIC_PATH + (gameKeyLink ||
-        '/space-battle/index.html');
-    iframe.onload = function() {
-        gameLoadingAlert.style.display =
-            'none';
+    iframe.src = BASIC_PATH + (gameKeyLink || '/space-battle/index.html');
+
+    iframe.onload = function () {
+        gameLoadingAlert.style.display = 'none';
     };
 
 
     function changeSource(target) {
-        var gameKeyLink = target.getAttribute(
-            'href');
-        var gamePath = BASIC_PATH +
-            gameKeyLink;
+        var gameKeyLink = target.getAttribute('href');
+        var gamePath = BASIC_PATH + gameKeyLink;
 
-        gameLoadingAlert.style.display =
-            'block';
+        gameLoadingAlert.style.display = 'block';
         iframe.src = gamePath;
 
-        localStorage.setItem(
-            PHASER_TEST_SESSION_KEY,
-            gameKeyLink);
+        localStorage.setItem(PHASER_TEST_SESSION_KEY, gameKeyLink);
 
         return false;
+    }
+
+
+    function resetPersitence() {
+        localStorage.removeItem(PHASER_TEST_SESSION_KEY, gameKeyLink);
+        alert('User setting are now clean');
     }
 </script>
 

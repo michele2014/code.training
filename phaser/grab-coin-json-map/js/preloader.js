@@ -16,6 +16,8 @@ Game.Preloader.prototype = {
         //LOAD ALL ASSETS
         this.load.tilemap('map', 'assets/tile-map/grab-coin.json', null, Phaser.Tilemap.TILED_JSON);
         this.load.image('tileset', 'assets/tile-map/grab-coin.png');
+        this.load.image('tileset-2', 'assets/tile-map/super_mario.png');
+
 
         this.load.spritesheet('player', 'assets/player.png', 24, 26);
         this.load.image('bird', 'assets/apple.png');
