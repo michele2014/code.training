@@ -1,12 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <title>Game list</title>
+    <style>
+        body {
+            font-size: 24px;
+            margin: 0;
+        }
+
+
+        .container {
+            display: flex;
+        }
+
+        .left {
+            flex-basis: 15%;
+        }
+
+        .right {
+            flex-basis: 75%;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        nav {
+            width: 100%;
+        }
+
+        ul {
+            margin: 0;
+        }
+
+        nav ul li {
+            list-style-type: none;
+            font-variant-caps: petite-caps;
+        }
+
+
+        iframe {
+            width: 800px;
+            height: 600px;
+            padding: 5px;
+            border: 0;
+        }
+
+        .game-loading-alert {
+            display: none;
+            position: absolute;
+            width: 100%;
+            z-index: 1000;
+            background: #3c3a3a85;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 50px;
+        }
+    </style>
 </head>
+
 <body>
+<<<<<<< HEAD
     <ul>
         <ul><a href="./space-battle/index.html">space-battle</a></ul>
         <ul> <a href="./grab-diamond/index.html">grab-diamond</a></ul>
@@ -20,6 +84,78 @@
         
         
     </ul> 
+=======
+>>>>>>> 40c1bc5aeddf2272400ef96d800ca630f50e23df
 
+    <section class="container">
+        <nav class="left">
+            <ul>
+
+                <li>
+                    <a href=" https://github.com/michele2014/code.training">HOME</a>
+                </li>
+                <li>-</li>
+                <li>
+                    <a href="/example(Ph3)/index.html" onclick="return changeSource(this)">Test Phaser3</a>
+                </li>
+                <li>
+                    <a href="/space-battle/index.html" onclick="return changeSource(this)">space-battle</a>
+                </li>
+                <li>
+                    <a href="/grab-diamond/index.html" onclick="return changeSource(this)">grab-diamond</a>
+                </li>
+                <li>
+                    <a href="/grab-coin/index.html" onclick="return changeSource(this)">grab-coin</a>
+                </li>
+                <li>
+                    <a href="/grab-stars(Ph3)index.html" onclick="return changeSource(this)">grab-stars(Ph3)</a>
+                </li>
+            </ul>
+        </nav>
+
+        <iframe class="right">
+
+        </iframe>
+        <div class="game-loading-alert">THE GAME IS LOADING...</div>
+    </section>
 </body>
+<script>
+    const BASIC_PATH =
+        "https://michele2014.github.io/code.training/phaser";
+    const gameLoadingAlert = document.querySelector(
+        '.game-loading-alert');
+    const PHASER_TEST_SESSION_KEY =
+        "PHASER_TEST";
+
+    const iframe = document.querySelector(
+        'iframe');
+    const gameKeyLink = localStorage.getItem(
+        PHASER_TEST_SESSION_KEY);
+
+    iframe.src = BASIC_PATH + (gameKeyLink ||
+        '/space-battle/index.html');
+    iframe.onload = function() {
+        gameLoadingAlert.style.display =
+            'none';
+    };
+
+
+    function changeSource(target) {
+        var gameKeyLink = target.getAttribute(
+            'href');
+        var gamePath = BASIC_PATH +
+            gameKeyLink;
+
+        gameLoadingAlert.style.display =
+            'block';
+        iframe.src = gamePath;
+
+        localStorage.setItem(
+            PHASER_TEST_SESSION_KEY,
+            gameKeyLink);
+
+        return false;
+    }
+</script>
+
 </html>
