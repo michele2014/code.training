@@ -1,3 +1,7 @@
+# Tutorial youtube ref: https://www.youtube.com/watch?time_continue=25&v=hb00ZR4sipw
+# Medium article: https://medium.com/codingthesmartway-com-blog/angular-elements-a-practical-introduction-to-web-components-with-angular-6-52c0b3076c2c
+
+
 # AngularElements
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.0.
