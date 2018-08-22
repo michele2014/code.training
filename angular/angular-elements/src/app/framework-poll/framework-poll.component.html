@@ -1,5 +1,10 @@
 <div class="container">
     <div class="card">
+        <div>
+            <img src="../../assets/ctsw_logo.png" height="37"
+                alt="CodingTheSmartWay.com" [style.marginTop]="'20px'"
+            />
+        </div>
         <div class="card-body">
             <div *ngIf="!hasVoted && !updating">
                 <h2>Which is your frontend framework?</h2>
@@ -47,8 +52,7 @@
                 </div>
 
                 <span class="badge badge-pill badge-danger mb-1">
-                    Vue: {{vueVoteCount}} ( {{vueVotePercent}}
-                    % )
+                    Vue: {{vueVoteCount}} ( {{vueVotePercent}} % )
                 </span>
                 <div class="progress">
                     <div class="progress-bar progress-bar-striped-bg-danger"
