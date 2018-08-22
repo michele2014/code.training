@@ -1,0 +1,13 @@
+{
+    "brace_style": "collapse,preserve-inline",
+    "preserve_newlines": true,
+    "wrap_line_length": 120,
+    "html": { 
+        "unformatted": [],
+        "wrap_attributes":"auto",
+        "wrap_line_length": 100
+    },
+    "js": {  
+        "wrap_line_length": 120
+    }
+}

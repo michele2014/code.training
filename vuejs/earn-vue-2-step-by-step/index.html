@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .color-blue {
+            color: blue;
+        }
+
+        .color-red {
+            color: red;
+        }
+
+        .is-loading {
+            background: green;
+        }
+
+        button[disabled] {
+            background: #ccc4c4;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <h1 :class="testClass">Hello People</h1>
+        <button :disabled="isDisabled" :class="{'is-loading' : isLoading}" @click="isLoading = !isLoading">Toggle me</button>
+
+        <p>
+            <input type="text" id="input" v-model="message">
+        </p>
+
+        <p>
+            the value of input is
+            <b>{{message}}</b>
+        </p>
+
+        <p>
+            <input type="text" v-model="newName">
+            <button @click="addName" :title="titleButton">Add name</button>
+
+            <ul>
+                <li v-for="name in names">{{name}}</li>
+            </ul>
+
+            <ul>
+                <li v-for="name in names" v-text="name"></li>
+            </ul>
+        </p>
+
+    </div>
+
+
+
+    <!-- development version, includes helpful console warnings -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#root',
+            data: {
+                message: 'Hello Word',
+                newName: '',
+                names: ['Alan', 'Mike', 'Jane'],
+                titleButton: 'Vue Title dynamic',
+                testClass: 'color-blue',
+                isLoading: false,
+                isDisabled: true
+            },
+            methods: {
+                addName() {
+                    this.names.push(this.newName);
+                    this.newName = '';
+                }
+            },
+            mounted() {
+                console.log('READY!!')
+            }
+        });
+
+
+        setTimeout(() => {
+            app.message = 'Good to go';
+            app.isDisabled = false;
+        }, 1500)
+    </script>
+</body>
+
+</html>
