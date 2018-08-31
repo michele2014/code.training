@@ -29,8 +29,13 @@
 <body>
     <div id="root">
         <p>
-                <task-list></task-list>
+            <message title = "Hello Word"  body = "Lorem ipsum dolar sit amet"></message>
+            <message title = "Hello Word @"  body = "blah blah"></message>
+     
+        </p>
 
+        <p>
+            <task-list></task-list>
         </p>
 
 
@@ -87,6 +92,8 @@
     <!-- development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="./task-component.js"></script>
+    <script src="./message-component.js"></script>
+
     <script>
         var app = new Vue({
             el: '#root',
