@@ -28,8 +28,29 @@
 
 <body>
     <div id="root">
+        <h1>
+            {{ reverseMessage}}
+        </h1>
         <h1 :class="testClass">Hello People</h1>
-        <button :disabled="isDisabled" :class="{'is-loading' : isLoading}" @click="isLoading = !isLoading">Toggle me</button>
+        <button :disabled="isDisabled" :class="{'is-loading' : isLoading}" @click="isLoading = !isLoading">Toggle
+            me</button>
+
+        <p>
+            <h2>All Tasks</h2>
+            <ul>
+                <li v-for="task in tasks" v-text="task.description"></li>
+            </ul>
+
+            <h2>Completed Tasks</h2>
+            <ul>
+                <li v-for="task in completedTasks" v-text="task.description"></li>
+            </ul>
+
+            <h2>Incompleted Tasks</h2>
+            <ul>
+                <li v-for="task in incompletedTasks" v-text="task.description"></li>
+            </ul>
+        </p>
 
         <p>
             <input type="text" id="input" v-model="message">
@@ -69,7 +90,28 @@
                 titleButton: 'Vue Title dynamic',
                 testClass: 'color-blue',
                 isLoading: false,
-                isDisabled: true
+                isDisabled: true,
+
+                tasks: [
+                    { description: "Task 1", completed: false },
+                    { description: "Task 2", completed: true },
+                    { description: "Task 3", completed: false },
+                    { description: "Task 4", completed: true },
+                    { description: "Task 5", completed: false },
+                    { description: "Task 6", completed: false }
+                ]
+            },
+            computed: {
+                reverseMessage() {
+                    return this.message.split('').reverse().join('')
+                },
+                completedTasks() {
+                    return this.tasks.filter(t => t.completed);
+
+                },
+                incompletedTasks() {
+                    return this.tasks.filter(t => !t.completed);
+                },
             },
             methods: {
                 addName() {
