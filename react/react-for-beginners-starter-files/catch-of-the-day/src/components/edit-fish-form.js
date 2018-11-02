@@ -7,8 +7,7 @@ class EditFishForm extends Component {
       image: PropTypes.string,
       name: PropTypes.string,
       desc: PropTypes.string,
-      status: PropTypes.string,
-      price: PropTypes.number
+      status: PropTypes.string
     }),
     index: PropTypes.string,
     updatedFish: PropTypes.func
@@ -36,7 +35,7 @@ class EditFishForm extends Component {
           type="text"
           name="price"
           placeholder="Price"
-          value={this.props.fish.price}
+          value={parseFloat(this.props.fish.price)}
           onChange={this.hadleChange}
         />
         <select
