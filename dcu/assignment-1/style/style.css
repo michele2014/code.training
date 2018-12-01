@@ -1,5 +1,5 @@
 /* menu style */
-ul {
+.menu ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -7,23 +7,22 @@ ul {
     background-color: #333;
 }
 
-li {
+.menu li {
     float: left;
 }
 
-li a {
+.menu li a {
     display: block;
     color: white;
     text-align: center;
     padding: 14px 16px;
-    text-decoration: none;
 }
 
-li a:hover:not(.active) {
+.menu li a:hover:not(.active) {
     background-color: #111;
 }
 
-.active {
+.menu .active {
     background-color: #4CAF50;
 }
 
@@ -40,30 +39,70 @@ body {
     padding: 0;
 }
 
+a {
+    text-decoration: none;
+}
+
 main {
-    width: 847px;
     margin: 0 auto;
+    width: 847px;
 }
 
-/* h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-weight: 600;
-    line-height: 1.2;
-    margin-bottom: 17px;
+main.home-container {
+    display: flex;
+    max-width: 1139px;
+    width: 100%;
 }
 
-h1 {
-    font-size: 26px;
-    margin-top: 0;
+main.home-container aside iframe {
+    width: 93%;
+    height: 530px;
+    border: 1px solid black;
 }
 
-h2 {
-    font-size: 20px;
-} */
+.right,
+.left {
+    margin: 0 10px
+}
+
+
+.left {
+    flex-basis: 23%;
+}
+
+.right {
+    flex-basis: 74%;
+}
+
+.right-content,
+.main-image {
+    max-width: 800px;
+}
+
+.left-nav ul {
+    background: #ededed;
+    list-style: none;
+    margin: 0;
+    padding: 5px 0;
+}
+
+.left-nav ul li a {
+    color: #000;
+    display: block;
+    padding: 4px 12px 4px 25px;
+    position: relative;
+}
+
+.left-nav ul li a:before {
+    border-top: 5px solid transparent;
+    border-left: 5px solid #4c4c4c;
+    border-bottom: 5px solid transparent;
+    content: '';
+    display: block;
+    position: absolute;
+    top: 9px;
+    left: 12px;
+}
 
 
 figure {
@@ -78,14 +117,17 @@ iframe {
 
 /* footer */
 footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
     width: 100%;
     background-color: #333;
     color: white;
     text-align: center;
     padding: 10px 0;
+}
+
+[data-key="where-we-are"] footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
 }
 
 footer div {
