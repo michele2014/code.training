@@ -1,4 +1,9 @@
 /* menu style */
+.menu {
+    position: sticky;
+    top: 0;
+}
+
 .menu ul {
     list-style-type: none;
     margin: 0;
@@ -24,6 +29,14 @@
 
 .menu .active {
     background-color: #4CAF50;
+}
+
+.fb-container {
+    padding: 2px 16px;
+}
+
+.twitter-container {
+    padding: 2px 0;
 }
 
 /* main style */
@@ -58,6 +71,11 @@ main.home-container aside iframe {
     width: 93%;
     height: 530px;
     border: 1px solid black;
+    margin: 0;
+}
+
+main.home-container aside .map-container {
+    padding: 3px;
 }
 
 .right,
@@ -76,7 +94,7 @@ main.home-container aside iframe {
 
 .right-content,
 .main-image {
-    max-width: 800px;
+    max-width: 813px;
 }
 
 .left-nav ul {
@@ -92,6 +110,15 @@ main.home-container aside iframe {
     padding: 4px 12px 4px 25px;
     position: relative;
 }
+
+.left-nav ul li a:not([href="#"]){
+    font-weight: bold; 
+} 
+
+.left-nav ul li a[href="#"]{
+    cursor: not-allowed;
+    pointer-events: none;
+} 
 
 .left-nav ul li a:before {
     border-top: 5px solid transparent;
