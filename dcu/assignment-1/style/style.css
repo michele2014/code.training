@@ -36,7 +36,12 @@
 }
 
 .twitter-container {
-    padding: 2px 0;
+    padding: 2px 16px 0 0;
+}
+
+.pinterest-container{
+    padding: 13px 0
+
 }
 
 /* main style */
@@ -165,3 +170,19 @@ footer div {
 footer a {
     color: white;
 }
+
+/* fb button */
+/* .fb-container .fb-share-button.fb_iframe_widget span {
+    display: inline-block;
+    position: relative;
+    text-align: justify;
+    vertical-align: bottom;
+    width: 88px!important;
+    height: 20px!important;  
+}
+
+.fb-container iframe{
+     
+    width: 88px!important;
+    height: 20px!important;
+} */

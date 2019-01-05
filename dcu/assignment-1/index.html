@@ -17,11 +17,15 @@
     <nav class="menu">
         <ul>
             <li><a onclick="setActiveLink(this)" href="index.html" data-key="home">Home</a></li>
-            <li><a onclick="setActiveLink(this)" href="where-we-are.html" data-key="where-we-are">where-we-are</a></li>
+            <li><a onclick="setActiveLink(this)" href="where-we-are.html" data-key="where-we-are">Where we are</a></li>
             <li><a onclick="setActiveLink(this)" href="about.html" data-key="about">About</a></li>
 
             <li>
                 <div class="fb-container">
+                    <!-- This is the code provided by Facebook to allow sharing -->
+                    <!-- To see the Facebook "share" button you need to publish this website
+                    online or in your local server(eg. Apache, if you have installed nodejs 
+                    you can use "liteserver", "liveserver" and many others) -->
                     <div id="fb-root"></div>
                     <script>
                         (function (d, s, id) {
@@ -34,19 +38,32 @@
                         }(document, 'script', 'facebook-jssdk'));
                     </script>
                     <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count"
-                        data-size="small" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"
-                            class="fb-xfbml-parse-ignore">Share</a></div>
+                        data-size="small" data-mobile-iframe="true">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"
+                            class="fb-xfbml-parse-ignore">Share</a>
+                    </div>
                 </div>
             </li>
             <li>
                 <div class="twitter-container">
+                    <!-- This is the code provided by Twitter to allow sharing -->
                     <a href="https://twitter.com/intent/tweet?button_hashtag=LoveTwitter&ref_src=twsrc%5Etfw" class="twitter-hashtag-button"
                         data-show-count="false">Tweet #LoveTwitter</a>
                     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                 </div>
-
             </li>
-
+            <li>
+                <div class="pinterest-container">
+                    <!-- This is the code provided by Pinterst to allow sharing -->
+                    <!-- To see the Pinterst "save" button you need to publish this website
+                    online or in your local server(eg. Apache, if you have installed nodejs 
+                    you can use "liteserver", "liveserver" and many others) -->
+                    <a data-pin-do="buttonBookmark" 
+                    class="PIN_1543713261308_button_pin PIN_1543713261308_save"
+                    href="https://www.pinterest.com/pin/create/button/" target="_blank"></a>
+                    <script async defer src="//assets.pinterest.com/js/pinit.js"></script>
+                </div>
+            </li>
         </ul>
     </nav>
 
@@ -57,7 +74,7 @@
                 <!-- These links are just place holders -->
                 <ul>
                     <li>
-                        <a href="https://www.ireland.ie/en">Discover Ireland</a>
+                        <a href="https://www.ireland.ie/en" target="_blank">This is Ireland</a>
                     </li>
                     <li>
                         <a href="https://www.chg.gov.ie/heritage/built-heritage/" target="_blank">
@@ -70,7 +87,7 @@
                             target="_blank">National Monuments Service
                         </a>
                     </li>
-
+                    <!-- These links are just place holders -->
                     <li>
                         <a href="#">National Parks & Wildlife Service</a>
                     </li>
@@ -125,7 +142,7 @@
 
             </section>
             <section class="map-container">
-                <h4>Where we are</h4>
+                <h3>Where we are</h3>
                 <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=-6.2692355923354635%2C53.381744010181094%2C-6.252799015492203%2C53.39024175524464&amp;layer=mapnik&amp;marker=53.38599309473427%2C-6.261017303913832">
                 </iframe>
             </section>
