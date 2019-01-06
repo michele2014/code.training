@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="DCU assignment 2 - Question 2, Form Validator">
+    <meta name="keywords" content="DCU,form,validator">
+    <meta name="author" content="Michele Di Benedetto">
     <title>Form Validator</title>
     <style>
         *{
@@ -34,7 +37,7 @@
             background: #efeeee;
         }
 
-        input[required] {
+        input[required]:invalid {
             border: 1px solid red;
         }
 
@@ -52,10 +55,19 @@
             border-color: #9dd3e2
         }
 
+        .selectable{
+            cursor: pointer;
+        }
+
         .submit-button{
             width: 100%;
             height: 40px;
             margin: 10px 0;
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+            outline: none;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -66,12 +78,11 @@
         <form onsubmit="return handleSubmit(this)">
             <div class="input-section">
                 <label>4 digit pin</label>
-                <input class="input-element" type="number"
-                max="4" />
+                <input class="input-element" type="number" max="4" />
             </div>
 
             <div class="input-section">
-                <input type="checkbox" id="yesNoContacted" onchange="handleYesNoContactedChange(this)" />
+                <input class = "selectable" type="checkbox" id="yesNoContacted" onchange="handleYesNoContactedChange(this)" />
                 <label for="yesNoContacted">I wish to be contacted by email</label>
             </div>
 
@@ -82,15 +93,15 @@
 
             <div class="input-section-group">
                 <div class="input-section">
-                    <input type="radio" name="pets" id="dog" onchange="handlePetChange(this)" />
+                    <input class = "selectable" type="radio" name="pets" id="dog" onchange="handlePetChange(this)" />
                     <label for="dog">dog</label>
                 </div>
                 <div class="input-section">
-                    <input type="radio" name="pets" id="cat" onchange="handlePetChange(this)" />
+                    <input class = "selectable" type="radio" name="pets" id="cat" onchange="handlePetChange(this)" />
                     <label for="cat">cat</label>
                 </div>
                 <div class="input-section">
-                    <input type="radio" name="pets" id="other" onchange="handlePetChange(this)" />
+                    <input class = "selectable" type="radio" name="pets" id="other" onchange="handlePetChange(this)" />
                     <label for="other">other</label>
                 </div>
 
@@ -120,8 +131,10 @@
 
             if (target.id == 'other') {
                 otherType.removeAttribute('disabled');
+                otherType.setAttribute('required', true);
             } else {
                 otherType.setAttribute('disabled', true);
+                otherType.removeAttribute('required');
                 otherType.value = '';
             }
         }
