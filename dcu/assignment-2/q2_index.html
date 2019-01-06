@@ -78,17 +78,17 @@
         <form onsubmit="return handleSubmit(this)">
             <div class="input-section">
                 <label>4 digit pin</label>
-                <input class="input-element" type="number" max="4" />
+                <input class="input-element" type="number" max="4" required />
             </div>
 
             <div class="input-section">
-                <input class = "selectable" type="checkbox" id="yesNoContacted" onchange="handleYesNoContactedChange(this)" />
+                <input class = "selectable" type="checkbox" id="yesNoContacted" onchange="handleYesNoContactedChange(this)"/>
                 <label for="yesNoContacted">I wish to be contacted by email</label>
             </div>
 
             <div class="input-section">
                 <label>Email address</label>
-                <input class="input-element" type="email" id="email" />
+                <input class="input-element" type="email" id="email"/>
             </div>
 
             <div class="input-section-group">
@@ -101,13 +101,13 @@
                     <label for="cat">cat</label>
                 </div>
                 <div class="input-section">
-                    <input class = "selectable" type="radio" name="pets" id="other" onchange="handlePetChange(this)" />
+                    <input class = "selectable" type="radio" name="pets" id="other" onchange="handlePetChange(this)" checked/>
                     <label for="other">other</label>
                 </div>
 
                 <div class="input-section">
                     <label for="otherType">Other Pet Type</label>
-                    <input class="input-element" type="text" maxlength="6" id="otherType" disabled />
+                    <input class="input-element" type="text" maxlength="6" id="otherType" required/>
                 </div>
             </div>
 
