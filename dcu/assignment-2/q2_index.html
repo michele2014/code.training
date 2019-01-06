@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Form Validator</title>
+    <style>
+
+        #container {
+            width: 650px;
+            border: 1px solid lightgray;
+            margin: 0 auto;
+            padding: 0 20px 20px;
+        }
+
+        form {
+            border: 1px solid lightgray;
+            padding: 0 15px;
+        }
+
+        form .input-section {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid lightgray;
+        }
+
+        input[disabled] {
+            background: #efeeee;
+        }
+
+        input[required] {
+            border: 1px solid red;
+        }
+
+        .input-element {
+            width: 100%;
+            border-style: 1px solid lighgray;
+            height: 25px;
+            border: solid 1px #ccc;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section id="container">
+        <form onsubmit="handleSubmit()">
+            <div class="input-section">
+                <label>4 digit pin</label>
+                <input class="input-element" type="number" maxlength="4" />
+            </div>
+
+            <div class="input-section">
+                <label for="yesNoContacted">I wish to be contacted by email</label>
+                <input type="checkbox" id="yesNoContacted" onchange="handleYesNoContactedChange(this)" />
+            </div>
+
+            <div class="input-section">
+                <label>Email address</label>
+                <input class="input-element" type="email" id="email" />
+            </div>
+
+            <div class="input-section-group">
+                <div class="input-section">
+                    <label for="dog">dog</label>
+                    <input type="radio" name="pets" id="dog" onchange="handlePetChange(this)" />
+                </div>
+                <div class="input-section">
+                    <label for="cat">cat</label>
+                    <input type="radio" name="pets" id="cat" onchange="handlePetChange(this)" />
+                </div>
+                <div class="input-section">
+                    <label for="other">other</label>
+                    <input type="radio" name="pets" id="other" onchange="handlePetChange(this)" />
+                </div>
+
+                <div class="input-section">
+                    <label for="otherType">Other Pet Type</label>
+                    <input class="input-element" type="text" maxlength="6" id="otherType" disabled />
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <script>
+        function handleYesNoContactedChange(target) {
+            const email = document.getElementById('email');
+
+            if (target.checked) {
+                email.setAttribute('required', true)
+            } else {
+                email.removeAttribute('required')
+            }
+        }
+
+        function handlePetChange(target) {
+            const otherType = document.getElementById('otherType');
+            
+            if (target.id == 'other') {
+                otherType.removeAttribute('disabled');
+            } else {
+                otherType.setAttribute('disabled', true);
+                otherType.value = '';
+            }
+        }
+
+        function handleSubmit() {
+            return false;
+        }
+    </script>
+
+</body>
+
+</html>
