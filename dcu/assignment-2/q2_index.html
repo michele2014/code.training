@@ -7,12 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Form Validator</title>
     <style>
+        *{
+            font-size: 16px;
+        }
 
         #container {
             width: 650px;
             border: 1px solid lightgray;
             margin: 0 auto;
-            padding: 0 20px 20px;
+            padding: 20px 20px;
         }
 
         form {
@@ -36,11 +39,23 @@
         }
 
         .input-element {
-            width: 100%;
-            border-style: 1px solid lighgray;
+            width: calc(100% - 20px); 
             height: 25px;
-            border: solid 1px #ccc;
+            border: 1px solid  #ccc;
             border-radius: 10px;
+            margin-top: 5px;
+            outline: none;
+            padding: 5px 10px;
+        }
+
+        .input-element:focus{
+            border-color: #9dd3e2
+        }
+
+        .submit-button{
+            width: 100%;
+            height: 40px;
+            margin: 10px 0;
         }
     </style>
 </head>
@@ -48,15 +63,16 @@
 <body>
 
     <section id="container">
-        <form onsubmit="handleSubmit()">
+        <form onsubmit="return handleSubmit(this)">
             <div class="input-section">
                 <label>4 digit pin</label>
-                <input class="input-element" type="number" maxlength="4" />
+                <input class="input-element" type="number"
+                max="4" />
             </div>
 
             <div class="input-section">
-                <label for="yesNoContacted">I wish to be contacted by email</label>
                 <input type="checkbox" id="yesNoContacted" onchange="handleYesNoContactedChange(this)" />
+                <label for="yesNoContacted">I wish to be contacted by email</label>
             </div>
 
             <div class="input-section">
@@ -66,16 +82,16 @@
 
             <div class="input-section-group">
                 <div class="input-section">
-                    <label for="dog">dog</label>
                     <input type="radio" name="pets" id="dog" onchange="handlePetChange(this)" />
+                    <label for="dog">dog</label>
                 </div>
                 <div class="input-section">
-                    <label for="cat">cat</label>
                     <input type="radio" name="pets" id="cat" onchange="handlePetChange(this)" />
+                    <label for="cat">cat</label>
                 </div>
                 <div class="input-section">
-                    <label for="other">other</label>
                     <input type="radio" name="pets" id="other" onchange="handlePetChange(this)" />
+                    <label for="other">other</label>
                 </div>
 
                 <div class="input-section">
@@ -83,6 +99,8 @@
                     <input class="input-element" type="text" maxlength="6" id="otherType" disabled />
                 </div>
             </div>
+
+            <button type="submit" class="submit-button">Submit</button>
         </form>
     </section>
 
@@ -99,7 +117,7 @@
 
         function handlePetChange(target) {
             const otherType = document.getElementById('otherType');
-            
+
             if (target.id == 'other') {
                 otherType.removeAttribute('disabled');
             } else {
@@ -108,7 +126,11 @@
             }
         }
 
-        function handleSubmit() {
+        function handleSubmit(form) {
+            const invalidFields = form.querySelectorAll(':invalid');
+            if (invalidFields.length > 0) {
+                alet('This form contains invalid fields.')
+            }
             return false;
         }
     </script>
