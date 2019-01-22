@@ -29,10 +29,10 @@ User - fields
 
 # Rest API - Endpoints
 
-- /api/login
+- /api/users/login
     - post: executes login access
     - get:  check if the user is already logged in
-- /api/logout
+- /api/users/logout
     - get:  executes logout of the user
 - /api/tasks
     - post: create the new task
