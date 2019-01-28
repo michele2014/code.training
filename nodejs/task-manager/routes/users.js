@@ -43,8 +43,16 @@ router.get('/', function(req, res, next) {
     );
 });
 
+router.get('/list', function(req, res, next) {
+    const users = User.find({}, (err, users)=>{
+        res.send(users);
+
+    });
+});
+
 router.post('/login', function(req, res, next) {
     let userData = req.body;
+    console.warn(userData.email)
     User.findOne({
             email: userData.email
         },
@@ -59,13 +67,15 @@ router.post('/login', function(req, res, next) {
                 let payload = {
                     subject: user._id
                 };
-                let token = jwt.sign(payload, SECRET_KEY);
+                let token = generateToken(payload);
 
                 res.status(200).send({
                     token
                 });
             }
         });
+
+        // res.send('USER_NOT_FOUND');
 
 });
 
