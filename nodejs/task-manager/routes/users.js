@@ -4,7 +4,7 @@ const {
     generateToken,
     verifyToken
 } = require('../helpers/jwt-manager');
-const User = require('../models/user');
+const User = require('../models/user-schema');
 
 const db = require('../helpers/db-manager');
 db.connect();
@@ -43,16 +43,9 @@ router.get('/', function(req, res, next) {
     );
 });
 
-router.get('/list', function(req, res, next) {
-    const users = User.find({}, (err, users)=>{
-        res.send(users);
-
-    });
-});
-
 router.post('/login', function(req, res, next) {
     let userData = req.body;
-    console.warn(userData.email)
+
     User.findOne({
             email: userData.email
         },
@@ -74,9 +67,6 @@ router.post('/login', function(req, res, next) {
                 });
             }
         });
-
-        // res.send('USER_NOT_FOUND');
-
 });
 
 router.get('/logout', function(req, res, next) {
@@ -87,5 +77,26 @@ router.get('/logout', function(req, res, next) {
     // Query provided token against The Blacklist on every authorized request
     res.send('You called LOG-OUT');
 });
+
+router.get('/search', function(req, res, next) {
+    const users = User.find({}, (err, users) => {
+        res.send(users);
+    });
+});
+
+router.post('/', function(req, res, next) {
+    let userData = req.body;
+
+    let id;
+     User.create({
+            email: userData.email,
+            password: userData.password
+        },
+        function(error, model) { 
+            console.log(b.id) 
+        }
+    );
+    res.status(200).send(id);
+})
 
 module.exports = router;
