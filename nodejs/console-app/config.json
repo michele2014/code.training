@@ -1,0 +1,15 @@
+{
+    "twitter": {
+        "hostname": "api.twitter.com",
+        "path": "/1.1/search/tweets.json",
+        "token": "AAAAAAAAAAAAAAAAAAAAAH7a9QAAAAAAG44yKWGMdjORy%2FoVtlNnjgd2%2BDA%3DdCokIiWJYaA4ptjapZdBT2kPYdNUWdcZwjJR1ohfhJyUiVaVfi",
+        "form": {
+            "grant_type": "client_credentials"
+        }
+    },
+    "github": {
+        "hostname": "api.github.com",
+        "path": "/search/repositories",
+        "userAgent": "node.js"
+    }
+}

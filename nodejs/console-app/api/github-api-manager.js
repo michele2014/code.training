@@ -1,11 +1,17 @@
 const http = require('https');
+const config = require('../config.json');
 
 function findProjects(query = "reactive") {
+
+    const {
+        github
+    } = config;
+
     const options = {
-        "hostname": "api.github.com",
-        "path": "/search/repositories?q=" + query,
-        headers: {
-            "User-Agent": 'node.js'
+        "hostname": github.hostname,
+        "path": `${github.path}?q=${query}`,
+        "headers": {
+            "User-Agent": github.userAgent
         }
     };
 

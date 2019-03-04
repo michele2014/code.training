@@ -1,21 +1,21 @@
 const http = require('https');
-const qs = require("querystring");
-
-const TWITTER_TOKEN = 'Bearer AAAAAAAAAAAAAAAAAAAAAH7a9QAAAAAAG44yKWGMdjORy%2FoVtlNnjgd2%2BDA%3DdCokIiWJYaA4ptjapZdBT2kPYdNUWdcZwjJR1ohfhJyUiVaVfi';
-const TWITTER_URL = "https://api.twitter.com/1.1/search/tweets.json?q=ReactiveCocoa";
-
+const config = require('../config.json');
 
 function findTwitts(query) {
+    const {
+        twitter
+    } = config;
+
     const options = {
-        "method": "GET",
-        "hostname": "api.twitter.com",
-        "path": "/1.1/search/tweets.json?q=" + query,
+        "hostname": twitter.hostname,
+        "path": `${twitter.path}?q=${query}`,
         "headers": {
-            "authorization": TWITTER_TOKEN
+            "authorization": `Bearer ${twitter.token}`
         },
-        form: {
-            grant_type: 'client_credentials'
-        }
+        "form": {
+            "grant_type": twitter.form.grant_type
+        },
+        "method": "GET",
     };
 
     return new Promise((resolve, reject) => {
@@ -31,9 +31,7 @@ function findTwitts(query) {
             })
             .on("error", reject);
     });
-
 };
-
 
 function parseResponse(data) {
     const projects = JSON.parse(data);
