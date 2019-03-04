@@ -1,5 +1,8 @@
 const readline = require('readline');
 const colors = require('./common/colors');
+const logger = require('./common/logger');
+
+logger.info('APPLICATION STARTUP')
 
 const github = require('./api/github-api-manager');
 const twitter = require('./api/twitter-api-manager');
@@ -22,6 +25,10 @@ function processCommand(input) {
         github
             .findProjects()
             .then(projects => {
+                    logger.info({
+                        api: 'Github',
+                        result: projects
+                    })
                     setPrompt(reader, true);
                     displayGithubProject(projects);
                     githubProjects = projects;
@@ -53,6 +60,10 @@ function processCommand(input) {
         twitter.
         findTwitts(selectedProject)
             .then(twitts => {
+                logger.info({
+                    api: 'Twitter',
+                    result: twitts
+                })
                 setPrompt(reader, true);
                 displayTwitts(twitts);
             })
@@ -88,6 +99,7 @@ function setPrompt(reader, enableTwittSearch) {
 }
 
 function exitCommand() {
+    logger.info('APPLICATION EXIT')
     process.exit(0);
 }
 
