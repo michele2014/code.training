@@ -1,20 +1,16 @@
 const http = require('https');
 
-const GITHUB_URL = "https://api.github.com/search/repositories?q=";
-
 function findProjects(query = "reactive") {
-    const URL = GITHUB_URL + query;
-
     const options = {
         "hostname": "api.github.com",
-        "path": "/search/repositories?q=reactive",
+        "path": "/search/repositories?q=" + query,
         headers: {
             "User-Agent": 'node.js'
         }
     };
 
     return new Promise((resolve, reject) => {
-        http.get(options, (res) => {
+        http.get(options, res => {
                 let data = '';
 
                 res.on('data', chunk => data += chunk);
@@ -40,5 +36,6 @@ function parseResponse(data) {
 }
 
 module.exports = {
-    findProjects
+    findProjects,
+    parseResponse
 };
