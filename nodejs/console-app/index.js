@@ -40,8 +40,9 @@ function processCommand(input) {
         }
 
         if (githubProjects.length < selectedIndex) {
-            displayFeedback(`The index "${selectedIndex}" is out of the range,
-            you must choose and index number between 0 and ${githubProjects.length-1}`);
+            displayFeedback(
+                `The index "${selectedIndex}" is out of the range.` +
+                `you must choose an index number between 0 and ${githubProjects.length-1}`);
             return;
         }
 
