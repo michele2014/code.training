@@ -1,6 +1,11 @@
 const readline = require('readline');
 
 const {
+    testInternet
+} = require('./common/helpers/internet-helper');
+testInternet();
+
+const {
     logApiResponse,
     logStartSession,
     logEndSession
