@@ -1,7 +1,6 @@
 const http = require('https');
-const config = require('../config.json');
 
-function findTwitts(query) {
+function findTwitts(config, query) {
     const {
         twitter
     } = config;

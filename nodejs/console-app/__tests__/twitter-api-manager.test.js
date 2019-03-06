@@ -1,4 +1,5 @@
-const twitter = require('../api/twitter-api-manager');
+const config = require('../config.json');
+const twitter = require('../common/api/twitter-api-manager');
 jest.mock('https');
 
 it('Should return a list of twitters from ' +
@@ -7,7 +8,7 @@ it('Should return a list of twitters from ' +
         const selectedProject = 'ReactiveSwift';
 
         twitter.
-        findTwitts(selectedProject)
+        findTwitts(config, selectedProject)
             .then(data => {
                     expect(data).toBeDefined();
                     expect(data).not.toBeNull();

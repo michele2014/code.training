@@ -1,7 +1,6 @@
 const http = require('https');
-const config = require('../config.json');
 
-function findProjects(query = "reactive") {
+function findProjects(config, query = "reactive") {
 
     const {
         github
@@ -42,6 +41,5 @@ function parseResponse(data) {
 }
 
 module.exports = {
-    findProjects,
-    parseResponse
+    findProjects
 };

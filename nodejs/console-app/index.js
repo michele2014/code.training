@@ -1,15 +1,30 @@
 const readline = require('readline');
-const colors = require('./common/colors');
-const logger = require('./common/logger');
 
-logger.info('APPLICATION STARTUP')
+const {
+    logApiResponse,
+    logStartSession,
+    logEndSession
+} = require('./common/helpers/logger');
 
-const github = require('./api/github-api-manager');
-const twitter = require('./api/twitter-api-manager');
+const {
+    displayFeedback,
+    displayGithubProject,
+    displayTwitts
+} = require('./common/messages');
 
-var reader = readline.createInterface(process.stdin, process.stdout);
+const {
+    setPrompt
+} = require('./common/menu');
+
+const github = require('./common/api/github-api-manager');
+const twitter = require('./common/api/twitter-api-manager');
+
+const config = require('./config.json');
+
+logStartSession();
+
+const reader = readline.createInterface(process.stdin, process.stdout);
 reader.on('line', processCommand);
-reader.on('close', exitCommand);
 
 setPrompt(reader);
 
@@ -20,114 +35,78 @@ function processCommand(input) {
     const parsedInput = input.toLowerCase();
 
     if (parsedInput === "search-github" || parsedInput === "sg") {
-        displayFeedback('Github search in progress...');
 
-        github
-            .findProjects()
-            .then(projects => {
-                    logger.info({
-                        api: 'Github',
-                        result: projects
-                    })
-                    setPrompt(reader, true);
-                    displayGithubProject(projects);
-                    githubProjects = projects;
-                },
-                err => console.error(err)
-            );
+        displayFeedback('Github search in progress...');
+        githubSearchCommand();
 
     } else if (parsedInput.startsWith("search-twitter -") || parsedInput.startsWith("st -")) {
 
         const params = parsedInput.split('-');
         const selectedIndex = params.pop();
 
-        if (isNaN(selectedIndex)) {
-            displayFeedback(`Command "${input}" is not valid.`);
-            return;
+        if (isValidTwitterParams(githubProjects, selectedIndex, input)) {
+            const selectedProject = githubProjects[selectedIndex].name;
+            displayFeedback(`Twitter search for "${selectedProject}" in progress...`);
+            twitterSearchCommand(selectedProject);
         }
-
-        if (githubProjects.length < selectedIndex) {
-            displayFeedback(
-                `The index "${selectedIndex}" is out of the range.` +
-                `you must choose an index number between 0 and ${githubProjects.length-1}`);
-            return;
-        }
-
-        const selectedProject = githubProjects[selectedIndex].name;
-
-        displayFeedback(`Twitter search for "${selectedProject}" in progress...`);
-
-        twitter.
-        findTwitts(selectedProject)
-            .then(twitts => {
-                logger.info({
-                    api: 'Twitter',
-                    result: twitts
-                })
-                setPrompt(reader, true);
-                displayTwitts(twitts);
-            })
-
     } else if (parsedInput === "quit" || parsedInput === "q") {
-        reader.close();
+        exitCommand();
     } else {
         displayFeedback(`Command "${input}" not found`);
     }
 }
 
-function setPrompt(reader, enableTwittSearch) {
-    const menuHeader = `<< MENU APP >>`;
-    const menuQuit =
-        ` 1. Type quit(q) to exit`;
-    const menuSearchGithub =
-        ` 2. Type search-github(sg) to run search "reactive project in github"`;
-
-    const menuSearchTwitts =
-        ` 3. Type search-twitter -{index of the project} to retrieve twitts related` +
-        `\nor type st -{index of the project}`;
-
-    const optionsMenu = [menuQuit, menuSearchGithub];
-    console.error('enableTwittSearch ' + enableTwittSearch)
-    if (enableTwittSearch) {
-        optionsMenu.push(menuSearchTwitts);
+async function githubSearchCommand() {
+    try {
+        const projects = await github.findProjects(config)
+        githubProjects = projects.slice(0, 10);
+        logApiResponse('Github', githubProjects);
+        displayGithubProject(githubProjects);
+        setPrompt(reader, true);
+    } catch (err) {
+        logApiResponse('Github', err);
     }
+}
 
-    const promptMenu = displayMenu(menuHeader, optionsMenu.join('\n'));
 
-    reader.setPrompt(promptMenu);
-    reader.prompt();
+async function twitterSearchCommand(selectedProject) {
+    try {
+        const twitts = await twitter.findTwitts(config, selectedProject);
+        logApiResponse('Twitter', twitts);
+        setPrompt(reader, true);
+        displayTwitts(twitts);
+    } catch (err) {
+        logApiResponse('Twitter', err);
+    }
 }
 
 function exitCommand() {
-    logger.info('APPLICATION EXIT')
+    logEndSession();
+    reader.close();
     process.exit(0);
 }
 
-function displayFeedback(message) {
-    console.log(`${colors.FgYellow}${message}${colors.FgWhite}`)
-}
+function isValidTwitterParams(githubProjects, index, input) {
+    const selectedIndex = parseInt(index);
 
-function displayMenu(header, message) {
-    return `${colors.FgBlue}${header}\r\n${message}${colors.FgWhite}\n> `
-}
+    if (githubProjects.length === 0) {
+        displayFeedback(
+            `Command "${input}" is not allowed. ` +
+            `You must first search for Github projects ` +
+            `by running the command "sg"`);
+        return false;
+    }
 
-function displayGithubProject(items) {
-    displayFeedback(`Total of ${items.length} projects found.`);
+    if (isNaN(selectedIndex)) {
+        displayFeedback(`Command "${input}" is not valid.`);
+        return false;
+    }
 
-    console.log('BEGIN LIST');
-    items.forEach((item, index) => {
-        console.log(`${(index)}.${item.full_name}`);
-    });
-    console.log('END LIST');
-}
-
-function displayTwitts(items) {
-    displayFeedback(`Total of ${items.length} twitts found.`);
-
-    console.log('BEGIN LIST');
-    items.forEach((item, index) => {
-        console.log(`${(index)}. ${colors.FgGreen}[${item.created_at}] - ${item.text} ${colors.FgWhite}`);
-    });
-    console.log('END LIST');
-
+    if (githubProjects.length < selectedIndex) {
+        displayFeedback(
+            `The index "${selectedIndex}" is out of the range. ` +
+            `You must choose an index number between 0 and ${githubProjects.length-1}`);
+        return false;
+    }
+    return true;
 }
