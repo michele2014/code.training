@@ -1,7 +1,7 @@
 # Github - Twitter
 This console application displays Github project names and relative twitts if there are any on Twitter
 
-# Prerequirements
+# Prerequisites
 
 1. open the command line on your machine
 2. run the command `node -v` to check your version, the source code was tested in nodejs `v10.15.2` 
@@ -86,3 +86,11 @@ BEGIN LIST
   2. [Wed Mar 06 22:26:35] - RT @TIME: When we take offense we re in reactive ...
 END LIST
   ```
+### Test
+Unit testing is implemented by using the tool `jest`
+To test the application run the command `npm test`
+
+### Logs
+Inside the folder `logs` you can find 
+- `combined.log` which contains all logs, included the API responses 
+- `error.log` which contains all errors logged
