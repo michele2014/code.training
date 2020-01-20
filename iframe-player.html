@@ -1,0 +1,29 @@
+<html>
+
+<body>
+
+<input id="txtUrl" type="text" value="u" onChange="setSourcee();"> 
+
+<iframe 
+  id="player"
+  width="560" 
+  height="315" 
+  src="https://www.youtube.com/embed/Wah0YXFGQ7I" 
+  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen></iframe>
+
+<script>
+  const txtUrl = document.querySelector('#txtUrl');
+  const iframe = document.querySelector('#player');
+  
+  setSourcee();
+  
+  function setSourcee(){
+    const source = txtUrl.value;
+    iframe.setAttribute('src', source);
+  }
+  
+</script>
+</body>
+
+</html>
