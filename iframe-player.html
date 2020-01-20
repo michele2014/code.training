@@ -12,15 +12,24 @@
       padding: 10px;
     }
     
+    label{
+       margin: 10px 0;
+      display: block;
+      font-weight: bold;
+    }
+    
+    .input-container{
+          margin: 10px 0;
+    }
   </style>   
 </head> 
 <body>
 
-  <div>
+  <div class="input-container">
     <label>
         Youtube video Url (ex. "https://www.youtube.com/embed/someThing")
     </label>
-      <input id="txtUrl" type="text" value="https://www.youtube.com/embed" onchange="setSourcee();" />
+      <input id="txtUrl" type="text" value="https://www.youtube.com/embed" onchange="setSourcee();">
   </div>
     
 <iframe 
