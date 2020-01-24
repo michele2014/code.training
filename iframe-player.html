@@ -52,11 +52,8 @@
 
 <script>
   const txtUrl = document.querySelector('#txtUrl');  
-  const iframe = document.querySelector('#player');  
-  
-  const btnParseUrl = document.querySelector('#txtUrl');
-  btnParseUrl.addEventListener('click', 
-
+  const iframe = document.querySelector('#player');    
+  const btnParseUrl = document.querySelector('#txtUrl'); 
   
   function setSource(){
     const source = txtUrl.value.trim();
@@ -64,8 +61,10 @@
   }
   
   function parseYoutubeVideoUrl(){
-    const parsedUrl = getYoutubeVideoCode(txtUrl.value.trim());
-    setSource();
+    const parsedUrl = getYoutubeVideoCode(txtUrl.value.trim());    
+    const template = 'https://www.youtube.com/embed/';
+    const source =  template + parsedUrl;
+    iframe.setAttribute('src', source);
   }
 
   function getYoutubeVideoCode(url){
