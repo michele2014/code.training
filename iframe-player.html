@@ -19,17 +19,27 @@
     }
     
     .input-container{
-          margin: 10px 0;
+      margin: 10px 0;
+      display: flex;
+    }
+    
+    #btnParseUrl{
+      height: 52px; 
+      margin-right: 10px; 
+      align-self: flex-end;
     }
   </style>   
 </head> 
 <body>
 
-  <div class="input-container">
-    <label>
-        Youtube video Url (ex. "https://www.youtube.com/embed/someThing")
-    </label>
-      <input id="txtUrl" type="text" value="https://www.youtube.com/embed" onchange="setSourcee();">
+<div class="input-container">
+    <button id="btnParseUrl" onclick="parseYoutubeVideoUrl()">Parse Video Code</button>
+    <div style="width: 100%;">
+        <label>
+            Youtube video Url (ex. "https://www.youtube.com/embed/someThing")
+        </label>
+        <input id="txtUrl" type="text" value="https://www.youtube.com/embed" onchange="setSource();">
+     </div>
   </div>
     
 <iframe 
@@ -41,15 +51,30 @@
   allowfullscreen></iframe>
 
 <script>
-  const txtUrl = document.querySelector('#txtUrl');
-  const iframe = document.querySelector('#player');
-  setSourcee();
+  const txtUrl = document.querySelector('#txtUrl');  
+  const iframe = document.querySelector('#player');  
   
+  const btnParseUrl = document.querySelector('#txtUrl');
+  btnParseUrl.addEventListener('click', 
+
   
-  function setSourcee(){
-    const source = txtUrl.value;
+  function setSource(){
+    const source = txtUrl.value.trim();
     iframe.setAttribute('src', source);
   }
+  
+  function parseYoutubeVideoUrl(){
+    const parsedUrl = getYoutubeVideoCode(txtUrl.value.trim());
+    setSource();
+  }
+
+  function getYoutubeVideoCode(url){
+    const REGEX = /(?<=watch\?v=).*/;
+    const videoCode = url.match(REGEX)[0]
+
+    console.log(videoCode)
+    return videoCode;
+  }  
   
 </script>
 </body>
