@@ -61,18 +61,24 @@
   }
   
   function parseYoutubeVideoUrl(){
-    const parsedUrl = getYoutubeVideoCode(txtUrl.value.trim());    
+    const url = txtUrl.value.trim();
+    const parsedUrl = getYoutubeVideoCode(url);    
     const template = 'https://www.youtube.com/embed/';
     const source =  template + parsedUrl;
-    iframe.setAttribute('src', source);
+    
+    if(!source){
+      alert(`The url: ${url} cannot be parsed :( `);
+    }
+    else{
+     iframe.setAttribute('src', source);
+    }   
   }
 
   function getYoutubeVideoCode(url){
     const REGEX = /(?<=watch\?v=).*/;
     const matches =  url.match(REGEX);
-    const videoCode = matches.length > 0 ? matches[0] : '';
-
-    console.log(videoCode)
+    const videoCode = matches.length > 0 ? matches[0] : null; 
+    
     return videoCode;
   }  
   
