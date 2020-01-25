@@ -33,12 +33,20 @@
 <body>
 
 <div class="input-container">
-    <button id="btnParseUrl" onclick="parseYoutubeVideoUrl()">Parse Video Code</button>
+    <button id="btnParseUrl" 
+            onclick="parseYoutubeVideoUrl()">
+      Parse Video Code
+    </button>
     <div style="width: 100%;">
         <label>
             Youtube video Url (ex. "https://www.youtube.com/embed/someThing")
         </label>
-        <input id="txtUrl" type="text" value="https://www.youtube.com/embed" onchange="setSource();">
+        <input id="txtUrl" 
+               type="text" 
+               value="https://www.youtube.com/embed" 
+               onchange="setSource();" 
+               onclick="selectText()"
+        >
      </div>
   </div>
     
@@ -55,6 +63,10 @@
   const iframe = document.querySelector('#player');    
   const btnParseUrl = document.querySelector('#txtUrl'); 
   
+  function selectText(){
+    txtUrl.select()
+  }
+  
   function setSource(){
     const source = txtUrl.value.trim();
     iframe.setAttribute('src', source);
@@ -70,7 +82,8 @@
       alert(`The url: ${url} cannot be parsed :( `);
     }
     else{
-     iframe.setAttribute('src', source);
+      txtUrl.value = source;
+      iframe.setAttribute('src', source);
     }   
   }
 
