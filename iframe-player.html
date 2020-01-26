@@ -12,8 +12,8 @@
       padding: 10px;
     }
     
-    label{
-       margin: 10px 0;
+    .left-block{
+      margin: 10px 0;
       display: block;
       font-weight: bold;
     }
@@ -33,12 +33,20 @@
 <body>
 
 <div class="input-container">
-    <button id="btnParseUrl" 
-            onclick="parseYoutubeVideoUrl()">
-      Parse Video Code
-    </button>
+   <div>
+      <label class="left-block">
+          <a target="_blank" 
+             href="https://github.com/mdibenedetto/code.training/blob/master/iframe-player.html">
+            source code >>
+          </a>
+       </label>
+        <button id="btnParseUrl" onclick="parseYoutubeVideoUrl()">
+          Parse Video Code
+        </button>
+    </div>
+  
     <div style="width: 100%;">
-        <label>
+       <label class="left-block">
             Youtube video Url (ex. "https://www.youtube.com/embed/someThing")
         </label>
         <input id="txtUrl" 
