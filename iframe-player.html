@@ -97,7 +97,7 @@
 
   function getYoutubeVideoCode(url){
     const REGEX = /(?<=watch\?v=).*(?=[&\s])/;
-    const matches =  url.match(REGEX);
+    const matches =  (url + ' ').match(REGEX);
     const videoCode = (matches || []).length > 0 ? matches[0] : null; 
     
     return videoCode;
