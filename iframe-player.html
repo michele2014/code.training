@@ -19,14 +19,22 @@
     }
     
     .input-container{
-      margin: 10px 0;
-      display: flex;
+        margin: 10px 0;
+        display: flex;
     }
-    
-    #btnParseUrl{
-      height: 52px; 
-      margin-right: 10px; 
-      align-self: flex-end;
+
+    #btnParseUrl{ 
+        margin-bottom: 5px;
+    }
+
+    #btnParseUrl, 
+    #btnPasteClipboard{
+        height: 24px;
+        margin-right: 10px;
+        /* align-self: flex-end; */
+        display: block;
+        width: 128px;
+        text-align: center;
     }
   </style>   
 </head> 
@@ -43,6 +51,9 @@
         <button id="btnParseUrl" onclick="parseYoutubeVideoUrl()">
           Parse Video Code
         </button>
+        <button id="btnPasteClipboard" onclick="pasteClipBoard()">
+            Paste Clipboard
+          </button>
     </div>
   
     <div style="width: 100%;">
@@ -93,6 +104,12 @@
       txtUrl.value = source;
       iframe.setAttribute('src', source);
     }   
+  }
+
+  async function pasteClipBoard(){
+    selectText();
+    const text = await navigator.clipboard.readText();
+    txtUrl.value = text;
   }
 
   function getYoutubeVideoCode(url){
